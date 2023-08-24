@@ -30,7 +30,7 @@ export async function DeleteCabin(id) {
 
 export async function CreateNewEditCabin(createCabin, editMode = false) {
   const imageName = ` ${Math.random()}-${createCabin.image.name}`.replaceAll('/', '');
-  const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
+  const imagePath = typeof createCabin.image === 'string' ? createCabin.image :`${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
 
   // let query = supabase.from('cabins');
    let Data ,Error
@@ -59,7 +59,6 @@ export async function CreateNewEditCabin(createCabin, editMode = false) {
   }
   // uploading the image
   if (typeof createCabin.image !== 'string') {
-
     const { imageError } = await supabase
       .storage
       .from('cabin-images')
