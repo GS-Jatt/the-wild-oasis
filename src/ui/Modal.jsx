@@ -1,4 +1,8 @@
+
+import { cloneElement, createContext, useContext, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import styled from "styled-components";
+import { useClickOutside } from "../hooks/useClickOutside";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -48,3 +52,50 @@ const Button = styled.button`
     color: var(--color-grey-500);
   }
 `;
+
+const modalContest = createContext();
+
+ function Modal({children}){
+  const [openName, setOpenName] = useState('');
+  const open = setOpenName;
+  const close = ()=>setOpenName('');
+
+  return(
+  <modalContest.Provider value={{open, openName, close}}>
+    {children}
+  </modalContest.Provider>
+  )
+
+} 
+
+function Open({children, open:windowOpenName}){
+  const {open} = useContext(modalContest);
+
+  return(
+    cloneElement(children ,{onClick:()=>open(()=>windowOpenName)})
+  )
+
+}
+
+
+function Window({children, name}){
+const {close, openName} = useContext(modalContest);
+const ref =useClickOutside(close);
+
+if(name !== openName) return '';
+
+  return createPortal(
+  <Overlay >
+    <StyledModal ref={ref}>
+      <Button onClick={close}>X</Button>
+      {cloneElement(children, {type:'modal',closeModal:close })}
+    </StyledModal>
+
+  </Overlay>, document.body);
+}
+
+Modal.Open = Open;
+Modal.Window = Window;
+
+
+export {Modal};

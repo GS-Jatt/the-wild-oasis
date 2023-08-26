@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
-import { useQuery } from "@tanstack/react-query";
-import { getCabins } from "../../services/apiCabins";
 import CabinRow from "./CabinRow";
-import { useState } from "react";
-import CreateCabinForm from "./CreateCabinForm";
+
 import useCabins from "./useCabins";
+import AddCabin from "./AddCabin";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -33,7 +31,6 @@ const TableHeader = styled.header`
   
 
 export default function CabinTable(){
-  const [showFrom, setShowFrom] = useState(false)
   
   const {isLoading, error, cabins} = useCabins();
   
@@ -54,8 +51,7 @@ export default function CabinTable(){
       cabins.map(cabin=><CabinRow cabin={cabin} key={cabin.id}/>)
       } 
 
-      <button onClick={()=>setShowFrom((showFrom)=>!showFrom)}>shown from</button>
-      {showFrom && <CreateCabinForm/>}
+      <AddCabin/>
       
     </Table>
   )

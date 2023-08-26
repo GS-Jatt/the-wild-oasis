@@ -8,7 +8,7 @@ import FormRow from "../../ui/FormRow";
 import useCreateCabin from "./useCreateCabin";
 import useEditCabin from "./useEditCabin";
 
-function CreateCabinForm({ editCabin = {}, editId }) {
+function CreateCabinForm({ editCabin = {}, editId, type = 'regular', closeModal}) {
   const editMode = Boolean(editId);
   const { handleSubmit, register, reset, getValues, formState } = useForm({
     defaultValues: editMode ? editCabin : {},
@@ -29,9 +29,17 @@ const {editCabin:EditCabin, isEditing}= useEditCabin();
         ...data,
         image: typeof data.image === "string" ? editCabin.image : data.image[0],
         editMode,
-      },{onSuccess:reset()});
+      },{
+        onSuccess:()=>{
+          reset();
+          closeModal?.();
+        }
+      });
     } else {
-      createCabin({ ...data, image: data.image[0] },{onSuccess:reset()});
+      createCabin({ ...data, image: data.image[0] },{onSuccess:()=>{
+        reset();
+        closeModal?.();
+      }});
     }
   }
 
@@ -40,7 +48,7 @@ const {editCabin:EditCabin, isEditing}= useEditCabin();
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form type={type} onSubmit={handleSubmit(onSubmit, onError)}>
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           type="text"
@@ -119,7 +127,7 @@ const {editCabin:EditCabin, isEditing}= useEditCabin();
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button variation="secondary" type="reset" onClick={()=>closeModal?.()}>
           Cancel
         </Button>
         <Button> {editMode ? "edit cabin " : "Add cabin"}</Button>
