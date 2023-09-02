@@ -6,6 +6,13 @@ import Table from "../../ui/Table";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
+import Menus from "../../ui/Menus";
+import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye, HiTrash } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
+import useCheckout from "../check-in-out/useCheckout";
+import useDeleteBooking from "../check-in-out/useDeleteBooking";
+import { Modal } from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -48,6 +55,9 @@ function BookingRow({
     cabins: { name: cabinName },
   },
 }) {
+  const navigate = useNavigate();
+  const { checkout } = useCheckout();
+  const { deleteBooking, isDeleteing } = useDeleteBooking();
   const statusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",
@@ -56,29 +66,72 @@ function BookingRow({
 
   return (
     <Table.Row>
-      <Cabin>{cabinName}</Cabin>
+      <Modal>
 
-      <Stacked>
-        <span>{guestName}</span>
-        <span>{email}</span>
-      </Stacked>
+        <Cabin>{cabinName}</Cabin>
 
-      <Stacked>
-        <span>
-          {isToday(new Date(startDate))
-            ? "Today"
-            : formatDistanceFromNow(startDate)}{" "}
-          &rarr; {numNights} night stay
-        </span>
-        <span>
-          {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
-          {format(new Date(endDate), "MMM dd yyyy")}
-        </span>
-      </Stacked>
+        <Stacked>
+          <span>{guestName}</span>
+          <span>{email}</span>
+        </Stacked>
 
-      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+        <Stacked>
+          <span>
+            {isToday(new Date(startDate))
+              ? "Today"
+              : formatDistanceFromNow(startDate)}{" "}
+            &rarr; {numNights} night stay
+          </span>
+          <span>
+            {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
+            {format(new Date(endDate), "MMM dd yyyy")}
+          </span>
+        </Stacked>
 
-      <Amount>{formatCurrency(totalPrice)}</Amount>
+        <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+
+        <Amount>{formatCurrency(totalPrice)}</Amount>
+        <Menus.Menu>
+          <Menus.Toggle id={bookingId} />
+
+          <Menus.List id={bookingId}>
+
+            <Menus.Button icon={<HiEye />} onClick={() => navigate(`${bookingId}`)}>
+              see details
+            </Menus.Button>
+
+            {
+              status !== 'checked-in' && <Menus.Button icon={<HiArrowDownOnSquare />} onClick={() => navigate(`/checkin/${bookingId}`)}>
+                Check-In
+              </Menus.Button>
+            }
+
+            {
+              status !== 'checked-out' && <Menus.Button icon={<HiArrowUpOnSquare />} onClick={() => checkout(bookingId)} >
+                Check-out
+              </Menus.Button>
+            }
+
+            {
+              status === 'checked-out' && <Modal.Open open={bookingId}> 
+                <Menus.Button icon={<HiTrash />}  >
+                  Delete
+                </Menus.Button>
+              </Modal.Open>
+            }
+
+
+          </Menus.List>
+
+
+        </Menus.Menu>
+        <Modal.Window name={bookingId}>
+          <ConfirmDelete onConfirm={() => deleteBooking(bookingId)} resource={bookingId} disabled={isDeleteing} >
+            
+          </ConfirmDelete>
+        </Modal.Window>
+      </Modal>
+
     </Table.Row>
   );
 }

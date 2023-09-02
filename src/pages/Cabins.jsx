@@ -1,11 +1,8 @@
-import { useEffect } from "react";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
-import { getCabins } from "../services/apiCabins";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+
 import CabinTable from "../features/cabins/CabinTable";
-import CabinRow from "../features/cabins/CabinRow";
-import Spinner from "../ui/Spinner";
+import CabinTableOperations from "../features/cabins/CabinTableOperations";
 
 
 
@@ -15,8 +12,10 @@ function Cabins() {
     <>
     <Row type="horizontal">
       <Heading as="h1">All cabins</Heading>
-      <p>TEST</p>
+      
+      <CabinTableOperations/>
     </Row>
+
     <Row>
       <CabinTable/> 
     </Row>

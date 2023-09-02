@@ -1,3 +1,5 @@
+import { stringify } from "postcss";
+import { useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const StyledFilter = styled.div`
@@ -33,3 +35,25 @@ const FilterButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
+
+
+export default function Filter({ fieldName, filters }) {
+  const [searchParam, setSearchParam] = useSearchParams()
+  const activeFilter = searchParam.get(fieldName) || 'all';
+  function headleClick(value) {
+    searchParam.set(fieldName, value);
+    if(searchParam.get('page')) searchParam.set('page', 1);
+    setSearchParam(searchParam);
+  }
+  return (
+    <StyledFilter>
+      {
+        filters.map((filter) => <FilterButton
+          key={filter.value}
+          active={activeFilter === filter.value? 1:'' }
+          disabled={activeFilter == filter.value}
+          onClick={() => headleClick(filter.value)}> {filter.label}</FilterButton>)
+      }
+    </StyledFilter>
+  )
+}

@@ -1,11 +1,11 @@
 import { isFuture, isPast, isToday } from 'date-fns';
 import { useState } from 'react';
-import supabase from 'services/supabase';
-import Button from 'ui/Button';
-import { subtractDates } from 'utils/helpers';
+import Button from '../ui/Button';
+import { subtractDates } from '../utils/helpers';
 import { bookings } from './data-bookings';
 import { cabins } from './data-cabins';
 import { guests } from './data-guests';
+import supabase from '../services/supabase';
 
 // const originalSettings = {
 //   minBookingLength: 3,
@@ -13,6 +13,7 @@ import { guests } from './data-guests';
 //   maxGuestsPerBooking: 10,
 //   breakfastPrice: 15,
 // };
+
 
 async function deleteGuests() {
   const { error } = await supabase.from('guests').delete().gt('id', 0);
@@ -140,7 +141,7 @@ export function Uploader() {
         onClick={uploadAll}
         // To prevent accidental clicks. Remove to run once!
         disabled={isLoading}
-        // disabled={true}
+      // disabled={true}
       >
         Upload ALL sample data
       </Button>
