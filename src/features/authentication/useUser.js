@@ -7,5 +7,5 @@ export default function useUser() {
         queryFn: userApi,
     })
 
-    return {user, error ,isLoading, isAuthenticated:user?.role === 'authenticated'};
+    return { user, error, isLoading, isAuthenticated: user?.role === 'authenticated' };
 }
