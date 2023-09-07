@@ -42,7 +42,7 @@ export default function Filter({ fieldName, filters }) {
   const activeFilter = searchParam.get(fieldName) || 'all';
   function headleClick(value) {
     searchParam.set(fieldName, value);
-    if(searchParam.get('page')) searchParam.set('page', 1);
+    if (searchParam.get('page')) searchParam.set('page', 1);
     setSearchParam(searchParam);
   }
   return (
@@ -50,7 +50,7 @@ export default function Filter({ fieldName, filters }) {
       {
         filters.map((filter) => <FilterButton
           key={filter.value}
-          active={activeFilter === filter.value? 1:'' }
+          active={activeFilter === filter.value ? 1 : ''}
           disabled={activeFilter == filter.value}
           onClick={() => headleClick(filter.value)}> {filter.label}</FilterButton>)
       }

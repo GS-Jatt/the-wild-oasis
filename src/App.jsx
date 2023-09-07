@@ -16,7 +16,7 @@ import { Toaster } from "react-hot-toast";
 import Booking from "./pages/Booking";
 import Checkin from "./pages/Checkin";
 import ProtectedRoute from "./utils/ProtectedRoute";
-import { DarkModeProvider } from "./context/DarModeContext";
+import { DarkModeProvider } from "./context/DarkModeContext";
 
 
 const queryClient = new QueryClient();
