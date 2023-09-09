@@ -1,1 +1,1 @@
-{ "redirects": [{ "source": "/(.*)", "destination": "/index.html" , "statusCode":307}] }
+{ "redirects": [{ "source": "/(.*)", "destination": "/dashboard" , "statusCode":307}] }
