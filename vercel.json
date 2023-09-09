@@ -2,8 +2,8 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "destination": "/",
-      "statusCode": 301
+      "destination": "/index.html",
+      "statusCode": 200
     }
   ]
 }
