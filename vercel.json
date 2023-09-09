@@ -3,7 +3,7 @@
     {
       "source": "/(.*)",
       "destination": "/index.html",
-      "statusCode": 200
+      "statusCode": 307
     }
   ]
 }
