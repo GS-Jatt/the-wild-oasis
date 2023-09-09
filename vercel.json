@@ -1,1 +1,1 @@
-{ "redirects": [{ "source": "/(.*)", "destination": "/" , "premanent":true}] }
+{ "redirects": [{ "source": "/(*)", "destination": "/" , "statusCode":200}] }
