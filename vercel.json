@@ -1,9 +1,4 @@
-{
-  "redirects": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html",
-      
-    }
-  ]
-}
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
