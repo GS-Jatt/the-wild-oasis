@@ -3,19 +3,28 @@ import CreateCabinForm from "./CreateCabinForm"
 
 import {Modal} from "../../ui/Modal";
 import Button from "../../ui/Button";
+import styled from "styled-components";
 
+
+const StyledAddCabin = styled.div`
+    margin: 2rem ;
+    float: right;
+`
 
 
 export default function AddCabin(){
     return(
+        <StyledAddCabin>
+
         <Modal>
             <Modal.Open open={'cabin-form'}>
-                <Button>shown from</Button>
+                <Button>Add New Cabin</Button>
             </Modal.Open>
             <Modal.Window name={'cabin-form'}>
                 <CreateCabinForm type='modal'/>
             </Modal.Window>
         </Modal>
+        </StyledAddCabin>
     );
 }
 

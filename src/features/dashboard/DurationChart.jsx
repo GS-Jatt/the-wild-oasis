@@ -11,21 +11,29 @@ import {
 import { useDarkModeContext } from "../../context/DarkModeContext";
 
 const ChartBox = styled.div`
-  /* Box */
-  background-color: var(--color-grey-0);
-  border: 1px solid var(--color-grey-100);
-  border-radius: var(--border-radius-md);
+    /* Box */
+    background-color: var(--color-grey-0);
+    border: 1px solid var(--color-grey-100);
+    border-radius: var(--border-radius-md);
 
-  padding: 2.4rem 3.2rem;
-  grid-column: 3 / span 2;
+    padding: 2.4rem 3.2rem;
+    grid-column: 3 / span 2;
 
-  & > *:first-child {
-    margin-bottom: 1.6rem;
-  }
+    & > *:first-child {
+        margin-bottom: 1.6rem;
+    }
 
-  & .recharts-pie-label-text {
-    font-weight: 600;
-  }
+    & .recharts-pie-label-text {
+        font-weight: 600;
+    }
+    @media (max-width: 1080px) {
+        padding: 1.6rem;
+        padding-top: 1.8rem;
+    }
+    @media (max-width: 960px) {
+        grid-column: 1 / -1;
+        padding: 3.2rem;
+    }
 `;
 
 const startDataLight = [
