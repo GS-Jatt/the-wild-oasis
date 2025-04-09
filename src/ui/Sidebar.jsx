@@ -23,7 +23,7 @@ function Sidebar() {
     <StyledSidebar>
       <Logo />
       <MainNav />
-      {import.meta.env.VITE_S_ADMIN === "0n" && <Uploader />}
+      {import.meta.env.VITE_ADMIN === "0n" && <Uploader />}
     </StyledSidebar>
   );
 }
