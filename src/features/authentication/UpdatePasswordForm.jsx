@@ -57,7 +57,7 @@ function UpdatePasswordForm() {
         <Button onClick={reset} type="reset" variation="secondary">
           Cancel
         </Button>
-        <Button disabled={isUpdating || import.meta.env.VITE_ADMIN !== "0n"}>
+        <Button disabled={isUpdating || import.meta.env.VITE_ADMIN !== "on"}>
           Update password
         </Button>
       </FormRow>
