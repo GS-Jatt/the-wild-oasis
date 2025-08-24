@@ -1,1 +1,10 @@
-{ "rewrites": [{ "source": "/(.*)", "destination": "/" }] }
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
+  "crons": [
+    {
+      "path": "/api/booking",
+
+      "schedule": "5 4 */2 * *"
+    }
+  ]
+}
